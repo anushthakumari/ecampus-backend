@@ -17,7 +17,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 	});
 	res.send({
 		token,
-		...student,
+		...student._doc,
 	});
 });
 
@@ -60,15 +60,9 @@ exports.register = asyncHandler(async (req, res, next) => {
 		mother_email,
 	});
 
-	const data = await student.save();
-
-	const token = generateToken({
-		id: data.id,
-		email: email,
-	});
+	await student.save();
 
 	res.send({
-		message: "Login successfull",
-		token,
+		message: " successfull",
 	});
 });
