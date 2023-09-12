@@ -1,6 +1,7 @@
 const asyncHandler = require("../utils/asyncHandler");
 const { generateToken } = require("../libs/jwt");
 const teacher_model = require("../models/teacher.model");
+const student_model = require("../models/student.model");
 
 exports.login = asyncHandler(async (req, res, next) => {
 	const { email, password } = req.body;
@@ -53,5 +54,20 @@ exports.register = asyncHandler(async (req, res, next) => {
 
 	res.send({
 		message: " successfull",
+	});
+});
+
+exports.verifyStudent = asyncHandler(async (req, res, next) => {
+	const { id } = req.query;
+	const student = await student_model.findById(id);
+
+	if (!student) {
+		res.status(401).send({ message: "invalid user!" });
+		return;
+	}
+
+	res.send({
+		token,
+		...student._doc,
 	});
 });
