@@ -67,7 +67,6 @@ exports.verifyStudent = asyncHandler(async (req, res, next) => {
 	}
 
 	res.send({
-		token,
 		...student._doc,
 	});
 });
